@@ -6,7 +6,10 @@ const createSvg = (html: string): SVGElement => {
 };
 
 export const SiteLogoIcon = ({ className }) => {
-    const svg = createSvg(`<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="${className}"><path d="M12.5 4H8.5V14.5H12.5C14.7091 14.5 16.5 12.7091 16.5 10.5V8C16.5 5.79086 14.7091 4 12.5 4Z" fill="currentColor" /><path d="M8.5 14.5H5.5V20H8.5V14.5Z" fill="currentColor" /><path d="M18.5 10.5C18.5 13.8137 15.8137 16.5 12.5 16.5H8.5V18.5H12.5C16.9183 18.5 20.5 14.9183 20.5 10.5V8C20.5 6.89543 19.6046 6 18.5 6C17.3954 6 16.5 6.89543 16.5 8V10.5C16.5 10.5 18.5 10.5 18.5 10.5Z" fill="currentColor" opacity="0.7"/></svg>`);
+    const svg = createSvg(`<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="${className}">
+  <path d="M5 8h14l-1.6 12H6.6L5 8z" fill="currentColor" />
+  <path d="M16 10V6a4 4 0 0 0-8 0v4h2V6a2 2 0 0 1 4 0v4h2z" fill="currentColor" opacity="0.7" />
+</svg>`);
     svg.style.height = '2rem';
     svg.style.width = '2rem';
     return svg;

@@ -1,5 +1,6 @@
 
 
+
 export type User = {
   id: number;
   name: string;
@@ -57,7 +58,10 @@ export type View =
   | { name: 'revisor_dashboard' }
   | { name: 'work_with_us' }
   | { name: 'become_seller' }
-  | { name: 'store_detail'; storeId: number };
+  | { name: 'store_detail'; storeId: number }
+  | { name: 'login' }
+  | { name: 'register' }
+  | { name: 'profile'; initialTab?: AdStatus };
 
 export type ImageAnalysisResult = {
   safe: boolean;

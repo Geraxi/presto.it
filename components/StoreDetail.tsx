@@ -1,7 +1,6 @@
 import { i18n } from '../hooks/useI18n.js';
 import { renderAdCard } from './AdCard.js';
-
-const PLACEHOLDER_IMG = '/public/images/placeholder.svg';
+import { PLACEHOLDER_IMG } from '../constants.js';
 
 export const renderStoreDetail = (state, actions, storeId) => {
   const { stores, ads } = state;

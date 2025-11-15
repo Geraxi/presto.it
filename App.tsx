@@ -1,3 +1,5 @@
+
+
 import { USERS, INITIAL_ADS, LANGUAGES, STORES } from './constants.js';
 import { i18n } from './hooks/useI18n.js';
 import { renderHeader } from './components/Header.js';
@@ -7,9 +9,11 @@ import { renderAdDetail } from './components/AdDetail.js';
 import { renderCreateAd } from './components/CreateAd.js';
 import { renderRevisorDashboard } from './components/RevisorDashboard.js';
 import { renderWorkWithUs } from './components/WorkWithUs.js';
-import { renderLogin } from './components/Login.js';
 import { renderBecomeSeller } from './components/BecomeSeller.js';
 import { renderStoreDetail } from './components/StoreDetail.js';
+import { renderLoginView } from './components/LoginView.js';
+import { renderRegisterView } from './components/RegisterView.js';
+import { renderProfileView } from './components/ProfileView.js';
 import type { User, Ad, Store, Language, View, CategoryKey } from './types.js';
 
 // Fix: Define interfaces for state and actions for type safety.
@@ -44,9 +48,14 @@ interface AppActions {
   addAd: (newAd: NewAd) => void;
   updateAd: (updatedAd: Ad) => void;
   createStore: (storeName: string, storeDescription: string) => void;
-  openLogin: () => void;
+  deleteAccount: () => void;
 }
 
+declare global {
+  interface Window {
+    bootstrap: any;
+  }
+}
 
 export default class App {
   // Fix: Declare class properties to resolve multiple 'does not exist on type App' errors.
@@ -56,12 +65,41 @@ export default class App {
 
   constructor() {
     this.rootElement = document.getElementById('root')!;
+    
+    const persistedState = this.loadState();
+
+    // Create maps from the initial data to handle merging. Using ID as the key.
+    const usersById = new Map(USERS.map(u => [u.id, { ...u }]));
+    const adsById = new Map(INITIAL_ADS.map(a => [a.id, { ...a }]));
+    const storesById = new Map(STORES.map(s => [s.id, { ...s }]));
+
+    // If there's a persisted state, merge it by overwriting/adding to the maps.
+    // This ensures new users are added and existing users (e.g. who became a seller) are updated.
+    if (persistedState) {
+        persistedState.users.forEach(pUser => usersById.set(pUser.id, { ...pUser }));
+        persistedState.ads.forEach(pAd => adsById.set(pAd.id, { ...pAd }));
+        persistedState.stores.forEach(pStore => storesById.set(pStore.id, { ...pStore }));
+    }
+    
+    const users = Array.from(usersById.values());
+    const ads = Array.from(adsById.values());
+    const stores = Array.from(storesById.values());
+    
+    // Restore the current user object from the newly merged user list.
+    const currentUser = persistedState?.currentUser
+      ? users.find(u => u.id === persistedState.currentUser.id) || null
+      : null;
+    
+    // Restore language or use default.
+    const language = persistedState?.language || LANGUAGES[0];
+
+    // Combine the data state with the transient view state, which always resets on load.
     this.state = {
-      users: USERS,
-      currentUser: null,
-      ads: INITIAL_ADS,
-      stores: STORES,
-      language: LANGUAGES[0],
+      users,
+      currentUser,
+      ads,
+      stores,
+      language,
       view: { name: 'home' },
       searchTerm: '',
       selectedCategory: 'all',
@@ -84,19 +122,49 @@ export default class App {
       addAd: this.addAd.bind(this),
       updateAd: this.updateAd.bind(this),
       createStore: this.createStore.bind(this),
-      openLogin: () => renderLogin(this.state, this.actions),
+      deleteAccount: this.deleteAccount.bind(this),
     };
+  }
+
+  loadState() {
+    try {
+      const serializedState = localStorage.getItem('presto_app_state');
+      if (serializedState === null) {
+        return undefined; // No state in localStorage, use initial state
+      }
+      return JSON.parse(serializedState);
+    } catch (err) {
+      console.error("Could not load state from localStorage", err);
+      return undefined;
+    }
+  }
+
+  saveState(state: AppState) {
+    try {
+      const stateToSave = {
+        users: state.users,
+        currentUser: state.currentUser,
+        ads: state.ads,
+        stores: state.stores,
+        language: state.language,
+      };
+      const serializedState = JSON.stringify(stateToSave);
+      localStorage.setItem('presto_app_state', serializedState);
+    } catch (err) {
+      console.error("Could not save state to localStorage", err);
+    }
   }
 
   setState(newState: Partial<AppState>) {
     this.state = { ...this.state, ...newState };
+    this.saveState(this.state);
     this.render();
   }
 
   login(email, password) {
     const user = this.state.users.find(u => u.email === email && u.password === password);
     if (user) {
-      this.setState({ currentUser: user, view: { name: 'home' } });
+      this.setState({ currentUser: user, view: { name: 'create_ad' } });
       return true;
     }
     return false;
@@ -107,7 +175,7 @@ export default class App {
     this.setState({
         users: [...this.state.users, newUser],
         currentUser: newUser,
-        view: { name: 'home' }
+        view: { name: 'create_ad' }
     });
   }
 
@@ -127,7 +195,7 @@ export default class App {
       title: { it: newAd.title, en: newAd.title, es: newAd.title },
       description: { it: newAd.description, en: newAd.description, es: newAd.description },
     };
-    this.setState({ ads: [ad, ...this.state.ads], view: { name: 'home' } });
+    this.setState({ ads: [ad, ...this.state.ads], view: { name: 'profile', initialTab: 'pending' } });
     alert(i18n.t('ad_created_success'));
   }
 
@@ -154,6 +222,24 @@ export default class App {
     });
   }
 
+  deleteAccount() {
+    if (!this.state.currentUser) return;
+
+    const userIdToDelete = this.state.currentUser.id;
+
+    const updatedUsers = this.state.users.filter(u => u.id !== userIdToDelete);
+    const updatedAds = this.state.ads.filter(ad => ad.userId !== userIdToDelete);
+    const updatedStores = this.state.stores.filter(s => s.ownerId !== userIdToDelete);
+
+    this.setState({
+      users: updatedUsers,
+      ads: updatedAds,
+      stores: updatedStores,
+      currentUser: null,
+      view: { name: 'home' }
+    });
+  }
+
   renderView() {
     const { view } = this.state;
     switch (view.name) {
@@ -169,6 +255,12 @@ export default class App {
         return renderBecomeSeller(this.state, this.actions);
        case 'store_detail':
         return renderStoreDetail(this.state, this.actions, view.storeId);
+      case 'login':
+        return renderLoginView(this.state, this.actions);
+      case 'register':
+        return renderRegisterView(this.state, this.actions);
+      case 'profile':
+        return renderProfileView(this.state, this.actions);
       case 'home':
       default:
         return renderHome(this.state, this.actions);
@@ -188,6 +280,33 @@ export default class App {
     const footer = renderFooter(this.state, this.actions);
 
     this.rootElement.append(header, main, footer);
+
+    // Re-initialize Bootstrap components after every render.
+    // This is necessary because the DOM is cleared and recreated on each state change.
+    if (window.bootstrap) {
+      // Dropdowns
+      if (typeof window.bootstrap.Dropdown === 'function') {
+        const dropdownElementList = Array.from(this.rootElement.querySelectorAll('[data-bs-toggle="dropdown"]'));
+        dropdownElementList.forEach(dropdownToggleEl => {
+          window.bootstrap.Dropdown.getOrCreateInstance(dropdownToggleEl);
+        });
+      }
+      // Tabs
+      if (typeof window.bootstrap.Tab === 'function') {
+        const tabElementList = Array.from(this.rootElement.querySelectorAll('[data-bs-toggle="tab"]'));
+        tabElementList.forEach(tabEl => {
+          // Creating a new instance attaches the event listeners.
+          new window.bootstrap.Tab(tabEl);
+        });
+      }
+      // Carousels
+      if (typeof window.bootstrap.Carousel === 'function') {
+          const carouselElList = this.rootElement.querySelectorAll('.carousel');
+          carouselElList.forEach(carouselEl => {
+              window.bootstrap.Carousel.getOrCreateInstance(carouselEl);
+          });
+      }
+    }
   }
 
   init() {

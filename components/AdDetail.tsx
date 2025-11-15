@@ -1,7 +1,6 @@
 import { i18n } from '../hooks/useI18n.js';
 import { CategoryIcon } from './ui/Icons.js';
-
-const PLACEHOLDER_IMG = '/public/images/placeholder.svg';
+import { PLACEHOLDER_IMG } from '../constants.js';
 
 export const renderAdDetail = (state, actions, adId) => {
   const { ads, users, stores } = state;

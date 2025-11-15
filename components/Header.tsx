@@ -4,7 +4,7 @@ import { SiteLogoIcon, SearchIcon } from './ui/Icons.js';
 
 export const renderHeader = (state, actions) => {
   const { currentUser, language, searchTerm, selectedCategory } = state;
-  const { setView, setLanguage, logout, openLogin, setSearchTerm, setSelectedCategory } = actions;
+  const { setView, setLanguage, logout, setSearchTerm, setSelectedCategory } = actions;
   
   const header = document.createElement('header');
   header.className = 'sticky-top shadow-sm';
@@ -34,23 +34,13 @@ export const renderHeader = (state, actions) => {
           </ul>
         </div>
 
-        <div class="dropdown">
-          ${currentUser ? `
-            <button class="btn btn-light rounded-circle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="width: 40px; height: 40px;">
+        ${currentUser ? `
+            <button class="btn btn-light rounded-circle" id="profile-btn" type="button" aria-label="${i18n.t('my_profile')}" style="width: 40px; height: 40px;">
               <i class="bi bi-person-fill fs-5"></i>
             </button>
-            <ul class="dropdown-menu dropdown-menu-end">
-              <li><h6 class="dropdown-header">${currentUser.name}</h6></li>
-              ${currentUser.isRevisor ? `<li><a class="dropdown-item" href="#" id="revisor-link">${i18n.t('revisor_dashboard')}</a></li>` : ''}
-              ${!currentUser.storeId ? `<li><a class="dropdown-item" href="#" id="become-seller-link">${i18n.t('become_seller')}</a></li>` : ''}
-              <li><a class="dropdown-item" href="#" id="work-with-us-link">${i18n.t('work_with_us')}</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item text-danger" href="#" id="logout-btn">${i18n.t('logout')}</a></li>
-            </ul>
           ` : `
-            <button class="btn btn-outline-secondary" id="login-register-btn">${i18n.t('login_register')}</button>
+            <button class="btn btn-outline-secondary" id="login-register-btn">${i18n.t('login')}</button>
           `}
-        </div>
       </nav>
     </div>
   `;
@@ -84,12 +74,9 @@ export const renderHeader = (state, actions) => {
   topBar.querySelector<HTMLSpanElement>('#logo-icon-container')!.append(SiteLogoIcon({ className: 'h-8 w-8 text-turquoise-blue' }));
   if(currentUser) {
     topBar.querySelector<HTMLButtonElement>('#post-ad-btn')!.onclick = () => setView({ name: 'create_ad' });
-    topBar.querySelector<HTMLAnchorElement>('#logout-btn')!.onclick = (e) => { e.preventDefault(); logout(); };
-    if(currentUser.isRevisor) topBar.querySelector<HTMLAnchorElement>('#revisor-link')!.onclick = (e) => { e.preventDefault(); setView({ name: 'revisor_dashboard' }); };
-    if(!currentUser.storeId) topBar.querySelector<HTMLAnchorElement>('#become-seller-link')!.onclick = (e) => { e.preventDefault(); setView({ name: 'become_seller' }); };
-    topBar.querySelector<HTMLAnchorElement>('#work-with-us-link')!.onclick = (e) => { e.preventDefault(); setView({ name: 'work_with_us' }); };
+    topBar.querySelector<HTMLButtonElement>('#profile-btn')!.onclick = () => setView({ name: 'profile' });
   } else {
-    topBar.querySelector<HTMLButtonElement>('#login-register-btn')!.onclick = openLogin;
+    topBar.querySelector<HTMLButtonElement>('#login-register-btn')!.onclick = () => setView({ name: 'login' });
   }
   topBar.querySelectorAll<HTMLAnchorElement>('.lang-item').forEach(item => {
     item.onclick = (e) => {

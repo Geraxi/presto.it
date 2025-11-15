@@ -1,8 +1,7 @@
-
-
 import type { User, Ad, Language, CategoryKey, Store } from './types';
+import { asset } from './utils.js';
 
-const placeholderPath = '/public/images/placeholder.svg';
+export const PLACEHOLDER_IMG = asset('public/images/placeholder.svg');
 
 export const USERS: User[] = [
   { id: 1, name: 'Linda', email: 'linda@example.com', isRevisor: false, password: 'password', storeId: 1 },
@@ -13,8 +12,8 @@ export const USERS: User[] = [
 ];
 
 export const STORES: Store[] = [
-    { id: 1, name: "Linda's Luxuries", description: "High-quality vintage furniture and decor that brings elegance to any home.", logo: '/public/images/linda-luxuries.png', ownerId: 1 },
-    { id: 2, name: "Pino's Tech Hub", description: "The latest and greatest in personal electronics, gadgets, and accessories.", logo: '/public/images/pino-tech.png', ownerId: 2 },
+    { id: 1, name: "Linda's Luxuries", description: "High-quality vintage furniture and decor that brings elegance to any home.", logo: asset('public/images/linda-luxuries.png'), ownerId: 1 },
+    { id: 2, name: "Pino's Tech Hub", description: "The latest and greatest in personal electronics, gadgets, and accessories.", logo: asset('public/images/pino-tech.png'), ownerId: 2 },
 ];
 
 export const CATEGORY_KEYS: CategoryKey[] = [
@@ -60,8 +59,8 @@ export const INITIAL_ADS: Ad[] = [
     category: 'electronics',
     userId: 2,
     status: 'approved',
-    images: ['/public/images/iphone-15-pro.png'],
-    watermarkedImages: ['/public/images/iphone-15-pro.png'],
+    images: [asset('public/images/iphone-15-pro.png')],
+    watermarkedImages: [asset('public/images/iphone-15-pro.png')],
   },
   {
     id: 2,
@@ -79,8 +78,8 @@ export const INITIAL_ADS: Ad[] = [
     category: 'furniture',
     userId: 1,
     status: 'approved',
-    images: ['/public/images/vintage-sofa.png'],
-     watermarkedImages: ['/public/images/vintage-sofa.png'],
+    images: [asset('public/images/vintage-sofa.png')],
+     watermarkedImages: [asset('public/images/vintage-sofa.png')],
   },
   {
     id: 3,
@@ -98,7 +97,7 @@ export const INITIAL_ADS: Ad[] = [
     category: 'clothing',
     userId: 4,
     status: 'pending',
-    images: ['/public/images/levis-jacket.png'],
+    images: [asset('public/images/levis-jacket.png')],
   },
     {
     id: 4,
@@ -116,8 +115,8 @@ export const INITIAL_ADS: Ad[] = [
     category: 'motors',
     userId: 1,
     status: 'approved',
-    images: ['/public/images/fiat-500e.png'],
-     watermarkedImages: ['/public/images/fiat-500e.png'],
+    images: [asset('public/images/fiat-500e.png')],
+     watermarkedImages: [asset('public/images/fiat-500e.png')],
   },
   {
     id: 5,
@@ -127,8 +126,8 @@ export const INITIAL_ADS: Ad[] = [
     category: 'collectibles',
     userId: 5,
     status: 'approved',
-    images: ['/public/images/dragon-ball.png'],
-    watermarkedImages: ['/public/images/dragon-ball.png'],
+    images: [asset('public/images/dragon-ball.png')],
+    watermarkedImages: [asset('public/images/dragon-ball.png')],
   },
   {
     id: 6,
@@ -138,8 +137,8 @@ export const INITIAL_ADS: Ad[] = [
     category: 'sports',
     userId: 4,
     status: 'approved',
-    images: ['/public/images/technogym-treadmill.png'],
-    watermarkedImages: ['/public/images/technogym-treadmill.png'],
+    images: [asset('public/images/technogym-treadmill.png')],
+    watermarkedImages: [asset('public/images/technogym-treadmill.png')],
   },
   {
     id: 7,
@@ -149,8 +148,8 @@ export const INITIAL_ADS: Ad[] = [
     category: 'jobs',
     userId: 2,
     status: 'approved',
-    images: [placeholderPath],
-    watermarkedImages: [placeholderPath],
+    images: [PLACEHOLDER_IMG],
+    watermarkedImages: [PLACEHOLDER_IMG],
   },
   {
     id: 8,
@@ -160,7 +159,7 @@ export const INITIAL_ADS: Ad[] = [
     category: 'real_estate',
     userId: 1,
     status: 'pending',
-    images: ['/public/images/studio-apartment.png'],
+    images: [asset('public/images/studio-apartment.png')],
   },
   {
     id: 9,
@@ -170,8 +169,8 @@ export const INITIAL_ADS: Ad[] = [
     category: 'music_movies',
     userId: 5,
     status: 'approved',
-    images: ['/public/images/pink-floyd-vinyl.png'],
-    watermarkedImages: ['/public/images/pink-floyd-vinyl.png'],
+    images: [asset('public/images/pink-floyd-vinyl.png')],
+    watermarkedImages: [asset('public/images/pink-floyd-vinyl.png')],
   },
   {
     id: 10,
@@ -181,8 +180,8 @@ export const INITIAL_ADS: Ad[] = [
     category: 'books_magazines',
     userId: 1,
     status: 'approved',
-    images: ['/public/images/harry-potter-books.png'],
-    watermarkedImages: ['/public/images/harry-potter-books.png'],
+    images: [asset('public/images/harry-potter-books.png')],
+    watermarkedImages: [asset('public/images/harry-potter-books.png')],
   },
 ];
 
@@ -217,7 +216,7 @@ export const I18N: Record<string, Record<Language['code'], string>> = {
   // Home
   recent_ads: { it: 'Prodotti Recenti', en: 'Recent Products', es: 'Productos Recientes' },
   no_ads_found: { it: 'Nessun prodotto trovato.', en: 'No products found.', es: 'No se encontraron productos.' },
-  hero_subtitle: { it: 'Il marketplace basato sull\'IA per acquisti veloci, sicuri e intelligenti.', en: 'The AI-powered marketplace for fast, safe, and smart shopping.', es: 'El marketplace impulsado por IA para compras rápidas, seguras e inteligentes.' },
+  hero_subtitle: { it: 'Il marketplace per acquisti veloci, sicuri e intelligenti.', en: 'The marketplace for fast, safe, and smart shopping.', es: 'El marketplace para compras rápidas, seguras e inteligentes.' },
   // Ad Detail
   posted_by: { it: 'Venduto da', en: 'Sold by', es: 'Vendido por' },
   back_to_home: { it: 'Torna alla home', en: 'Back to home', es: 'Volver al inicio' },
@@ -260,6 +259,8 @@ export const I18N: Record<string, Record<Language['code'], string>> = {
   analyze_text: { it: 'Analizza Testo', en: 'Analyze Text', es: 'Analizar Texto' },
   text_analysis: { it: 'Analisi Testo', en: 'Text Analysis', es: 'Análisis de Texto' },
   content_analysis: { it: 'Analisi Contenuto', en: 'Content Analysis', es: 'Análisis de Contenido' },
+  go_to_dashboard: { it: 'Vai al Pannello', en: 'Go to Dashboard', es: 'Ir al Panel' },
+  you_have_ads_to_review: { it: 'Ci sono {count} articoli da revisionare.', en: 'You have {count} items to review.', es: 'Tienes {count} artículos para revisar.' },
   // Work With Us
   become_a_revisor: { it: 'Diventa un revisore', en: 'Become a revisor', es: 'Conviértete en revisor' },
   revisor_description: { it: 'Guadagna un extra aiutando la nostra community a rimanere sicura. Invia la tua candidatura per diventare revisore.', en: 'Earn extra income by helping our community stay safe. Apply to become a revisor.', es: 'Gana un ingreso extra ayudando a nuestra comunidad a mantenerse segura. Postula para convertirte en revisor.' },
@@ -290,12 +291,27 @@ export const I18N: Record<string, Record<Language['code'], string>> = {
   login_to_open_store: { it: 'Accedi per aprire un negozio.', en: 'Please login to open a store.', es: 'Inicia sesión para abrir una tienda.' },
   already_have_store: { it: 'Hai già un negozio!', en: 'You already have a store!', es: '¡Ya tienes una tienda!' },
   store_not_found: { it: 'Negozio non trovato', en: 'Store not found', es: 'Tienda no encontrada' },
+  // Profile
+  my_profile: { it: 'Il Mio Profilo', en: 'My Profile', es: 'Mi Perfil' },
+  my_store: { it: 'Il Mio Negozio', en: 'My Store', es: 'Mi Tienda' },
+  my_ads: { it: 'I Miei Annunci', en: 'My Ads', es: 'Mis Anuncios' },
+  ads_approved: { it: 'Approvati', en: 'Approved', es: 'Aprobados' },
+  ads_pending: { it: 'In attesa', en: 'Pending', es: 'Pendientes' },
+  ads_rejected: { it: 'Rifiutati', en: 'Rejected', es: 'Rechazados' },
+  status_approved: { it: 'approvato', en: 'approved', es: 'aprobado' },
+  status_pending: { it: 'in attesa', en: 'pending', es: 'pendiente' },
+  status_rejected: { it: 'rifiutato', en: 'rejected', es: 'rechazado' },
+  no_ads_with_status: { it: 'Nessun annuncio con stato {status}.', en: 'No ads with status {status}.', es: 'No hay anuncios con estado {status}.' },
+  delete_account: { it: 'Elimina Account', en: 'Delete Account', es: 'Eliminar Cuenta' },
+  delete_account_confirm_title: { it: 'Sei sicuro?', en: 'Are you sure?', es: '¿Estás seguro?' },
+  delete_account_confirm_text: { it: 'Questa azione è irreversibile. Tutti i tuoi annunci e le informazioni del negozio verranno eliminati definitivamente. Vuoi procedere?', en: 'This action is irreversible. All your ads and store information will be permanently deleted. Do you want to proceed?', es: 'Esta acción es irreversible. Todos tus anuncios y la información de la tienda se eliminarán permanentemente. ¿Deseas continuar?' },
+  confirm_delete: { it: 'Sì, Elimina Account', en: 'Yes, Delete Account', es: 'Sí, Eliminar Cuenta' },
   // Footer
   platform_description: { it: 'La tua piattaforma e-commerce preferita.', en: 'Your favorite e-commerce platform.', es: 'Tu plataforma de e-commerce favorita.' },
   quick_links: { it: 'Link Rapidi', en: 'Quick Links', es: 'Enlaces Rápidos' },
   about_us: { it: 'Chi Siamo', en: 'About Us', es: 'Sobre Nosotros' },
   follow_us: { it: 'Seguici', en: 'Follow Us', es: 'Síguenos' },
-  all_rights_reserved: { it: '© 2024 Presto.it. Tutti i diritti riservati.', en: '© 2024 Presto.it. All rights reserved.', es: '© 2024 Presto.it. Todos los derechos reservados.' },
+  all_rights_reserved: { it: '© 2025 Presto.it. Tutti i diritti riservati.', en: '© 2025 Presto.it. All rights reserved.', es: '© 2025 Presto.it. Todos los derechos reservados.' },
   instagram_aria: { it: 'Vai a Instagram', en: 'Go to Instagram', es: 'Ir a Instagram' },
   facebook_aria: { it: 'Vai a Facebook', en: 'Go to Facebook', es: 'Ir a Facebook' },
 };

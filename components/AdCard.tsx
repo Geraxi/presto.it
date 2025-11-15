@@ -1,7 +1,6 @@
 import { i18n } from '../hooks/useI18n.js';
 import { CategoryIcon } from './ui/Icons.js';
-
-const PLACEHOLDER_IMG = '/public/images/placeholder.svg';
+import { PLACEHOLDER_IMG } from '../constants.js';
 
 export const renderAdCard = (ad, state, actions) => {
   const { users } = state;
@@ -12,7 +11,31 @@ export const renderAdCard = (ad, state, actions) => {
   card.className = 'col';
   card.style.cursor = 'pointer';
 
-  const displayedImage = ad.watermarkedImages?.[0] || ad.images?.[0] || PLACEHOLDER_IMG;
+  /**
+   * Gets a corrected GitHub URL for ads with known filename mismatches in the data source.
+   * @param ad The ad object to check.
+   * @returns A string with the correct URL, or null if no override is needed.
+   */
+  const getCorrectedImageUrl = (ad) => {
+    const title = i18n.tContent(ad.title).toLowerCase();
+    const baseUrl = 'https://raw.githubusercontent.com/Geraxi/presto.it/main/public/images/';
+    
+    // Map titles to the correct filenames from the GitHub repo to fix data mismatches.
+    if (title.includes('iphone')) return `${baseUrl}iphone-15-pro.png`;
+    if (title.includes('divano') || title.includes('vintage')) return `${baseUrl}vintage-sofa.png`;
+    if (title.includes('fiat')) return `${baseUrl}fiat500.png`;
+    if (title.includes('dragon') || title.includes('manga')) return `${baseUrl}dragonball.png`;
+    if (title.includes('technogym') || title.includes('roulant')) return `${baseUrl}tapisroulant.png`;
+    if (title.includes('harry') || title.includes('potter')) return `${baseUrl}Harrypotter.png`;
+    if (title.includes('dark side') || title.includes('vinile')) return `${baseUrl}darkside.png`;
+
+    // For other ads, no override is necessary, so we can trust the original path.
+    return null;
+  };
+
+  const correctedImage = getCorrectedImageUrl(ad);
+  const originalImage = ad.watermarkedImages?.[0] || ad.images?.[0];
+  const displayedImage = correctedImage || originalImage || PLACEHOLDER_IMG;
 
   card.innerHTML = `
     <div class="card h-100 shadow-sm border-light-subtle transform-hover">
