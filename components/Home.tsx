@@ -20,28 +20,38 @@ export const renderHome = (state, actions) => {
   const homeDiv = document.createElement('div');
 
   const hero = `
-    <div class="position-relative d-flex align-items-center" style="background: url('/public/images/hero-background.jpg') center center / cover; min-height: 60vh;">
-      <div class="position-absolute-overlay" style="background: linear-gradient(to right, rgba(1, 48, 54, 0.7), rgba(1, 48, 54, 0.1));"></div>
-      <div class="container position-relative">
-          <div class="row">
-              <div class="col-lg-7 col-md-8">
-                  <div class="text-start">
-                    <h1 class="text-white display-1 fw-bold">Presto.it</h1>
-                    <p class="text-white-75 fs-4 mt-3">${i18n.t('hero_subtitle')}</p>
+    <div class="position-relative d-flex align-items-center justify-content-center hero-section" style="min-height: 60vh;">
+      <div class="position-absolute hero-overlay" style="top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(1, 48, 54, 0.3), rgba(1, 48, 54, 0.5));"></div>
+      <div class="container position-relative" style="z-index: 1;">
+          <div class="row justify-content-center align-items-center">
+              <div class="col-lg-8 col-md-10 text-center">
+                  <div>
+                    <h1 class="display-1 fw-bold mb-4" style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Presto.it</h1>
+                    <p class="fs-4 mt-3" style="color: white; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">${i18n.t('hero_subtitle')}</p>
                   </div>
               </div>
           </div>
       </div>
-    </div>
-    <style>
-        .position-absolute-overlay {
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
+      <style>
+        .hero-section {
+          background-image: url('/images/heroimg.png');
+          background-size: cover;
+          background-position: center right;
+          background-repeat: no-repeat;
+          background-color: #013036;
         }
-    </style>
+        .hero-section::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(to right, rgba(1, 48, 54, 0.7) 0%, rgba(1, 48, 54, 0.4) 50%, transparent 100%);
+          z-index: 0;
+        }
+      </style>
+    </div>
   `;
 
   const adContainer = document.createElement('div');

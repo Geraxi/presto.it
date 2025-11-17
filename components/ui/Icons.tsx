@@ -6,7 +6,14 @@ const createSvg = (html: string): SVGElement => {
 };
 
 export const SiteLogoIcon = ({ className }) => {
-    const svg = createSvg(`<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="${className}"><path d="M12.5 4H8.5V14.5H12.5C14.7091 14.5 16.5 12.7091 16.5 10.5V8C16.5 5.79086 14.7091 4 12.5 4Z" fill="currentColor" /><path d="M8.5 14.5H5.5V20H8.5V14.5Z" fill="currentColor" /><path d="M18.5 10.5C18.5 13.8137 15.8137 16.5 12.5 16.5H8.5V18.5H12.5C16.9183 18.5 20.5 14.9183 20.5 10.5V8C20.5 6.89543 19.6046 6 18.5 6C17.3954 6 16.5 6.89543 16.5 8V10.5C16.5 10.5 18.5 10.5 18.5 10.5Z" fill="currentColor" opacity="0.7"/></svg>`);
+    // Shopping cart icon with bag - more e-commerce focused
+    const svg = createSvg(`<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="${className}">
+        <path d="M7.5 21C8.32843 21 9 20.3284 9 19.5C9 18.6716 8.32843 18 7.5 18C6.67157 18 6 18.6716 6 19.5C6 20.3284 6.67157 21 7.5 21Z" fill="currentColor"/>
+        <path d="M18.5 21C19.3284 21 20 20.3284 20 19.5C20 18.6716 19.3284 18 18.5 18C17.6716 18 17 18.6716 17 19.5C17 20.3284 17.6716 21 18.5 21Z" fill="currentColor"/>
+        <path d="M2 2H4.5L6.5 14H18.5L20.5 6H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M6 14L4.5 2H2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M18.5 14H6.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>`);
     svg.style.height = '2rem';
     svg.style.width = '2rem';
     return svg;

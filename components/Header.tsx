@@ -3,8 +3,10 @@ import { i18n } from '../hooks/useI18n.js';
 import { SiteLogoIcon, SearchIcon } from './ui/Icons.js';
 
 export const renderHeader = (state, actions) => {
-  const { currentUser, language, searchTerm, selectedCategory } = state;
+  const { currentUser, language, searchTerm, selectedCategory, basket } = state;
   const { setView, setLanguage, logout, openLogin, setSearchTerm, setSelectedCategory } = actions;
+  
+  const basketItemCount = basket.reduce((sum, item) => sum + item.quantity, 0);
   
   const header = document.createElement('header');
   header.className = 'sticky-top shadow-sm';
@@ -15,10 +17,21 @@ export const renderHeader = (state, actions) => {
     <div class="container py-3 d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center gap-2" style="cursor: pointer;" id="logo-link">
         <span id="logo-icon-container"></span>
-        <h1 class="h3 fw-bold text-secondary mb-0">PRESTO.IT</h1>
+        <h1 class="h4 fw-bold mb-0" style="color: #1a9ba8; line-height: 1.2;">
+          PRESTO<span class="small text-muted" style="font-size: 0.85em;">.IT</span>
+        </h1>
       </div>
       <nav class="d-flex align-items-center gap-2">
         ${currentUser ? `<button class="btn btn-primary d-none d-md-inline-block" id="post-ad-btn">${i18n.t('post_ad')}</button>` : ''}
+        
+        <button class="btn btn-light position-relative" id="basket-btn" style="width: 40px; height: 40px;">
+          <i class="bi bi-cart fs-5"></i>
+          ${basketItemCount > 0 ? `
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.65rem;">
+              ${basketItemCount}
+            </span>
+          ` : ''}
+        </button>
         
         <div class="dropdown">
           <button class="btn btn-light d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -41,6 +54,9 @@ export const renderHeader = (state, actions) => {
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
               <li><h6 class="dropdown-header">${currentUser.name}</h6></li>
+              <li><a class="dropdown-item" href="#" id="profile-link">${i18n.t('my_profile')}</a></li>
+              <li><a class="dropdown-item" href="#" id="my-listings-link">${i18n.t('my_listings')}</a></li>
+              ${currentUser.storeId ? `<li><a class="dropdown-item" href="#" id="my-store-link"><i class="bi bi-shop me-2"></i>${i18n.t('my_store')}</a></li>` : ''}
               ${currentUser.isRevisor ? `<li><a class="dropdown-item" href="#" id="revisor-link">${i18n.t('revisor_dashboard')}</a></li>` : ''}
               ${!currentUser.storeId ? `<li><a class="dropdown-item" href="#" id="become-seller-link">${i18n.t('become_seller')}</a></li>` : ''}
               <li><a class="dropdown-item" href="#" id="work-with-us-link">${i18n.t('work_with_us')}</a></li>
@@ -82,9 +98,18 @@ export const renderHeader = (state, actions) => {
   // Fix: Add type assertions to querySelector results to fix property access errors.
   topBar.querySelector<HTMLDivElement>('#logo-link')!.onclick = () => setView({ name: 'home' });
   topBar.querySelector<HTMLSpanElement>('#logo-icon-container')!.append(SiteLogoIcon({ className: 'h-8 w-8 text-turquoise-blue' }));
+  topBar.querySelector<HTMLButtonElement>('#basket-btn')!.onclick = () => setView({ name: 'basket' });
   if(currentUser) {
     topBar.querySelector<HTMLButtonElement>('#post-ad-btn')!.onclick = () => setView({ name: 'create_ad' });
     topBar.querySelector<HTMLAnchorElement>('#logout-btn')!.onclick = (e) => { e.preventDefault(); logout(); };
+    topBar.querySelector<HTMLAnchorElement>('#profile-link')!.onclick = (e) => { e.preventDefault(); setView({ name: 'profile' }); };
+    topBar.querySelector<HTMLAnchorElement>('#my-listings-link')!.onclick = (e) => { e.preventDefault(); setView({ name: 'my_listings' }); };
+    if(currentUser.storeId) {
+      const storeLink = topBar.querySelector<HTMLAnchorElement>('#my-store-link');
+      if (storeLink) {
+        storeLink.onclick = (e) => { e.preventDefault(); setView({ name: 'store_detail', storeId: currentUser.storeId! }); };
+      }
+    }
     if(currentUser.isRevisor) topBar.querySelector<HTMLAnchorElement>('#revisor-link')!.onclick = (e) => { e.preventDefault(); setView({ name: 'revisor_dashboard' }); };
     if(!currentUser.storeId) topBar.querySelector<HTMLAnchorElement>('#become-seller-link')!.onclick = (e) => { e.preventDefault(); setView({ name: 'become_seller' }); };
     topBar.querySelector<HTMLAnchorElement>('#work-with-us-link')!.onclick = (e) => { e.preventDefault(); setView({ name: 'work_with_us' }); };

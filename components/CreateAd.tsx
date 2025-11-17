@@ -20,8 +20,9 @@ const fileToBase64 = (file: File): Promise<{ base64: string, mimeType: string }>
   });
 
 export const renderCreateAd = (state, actions) => {
-  const { currentUser } = state;
+  const { currentUser, stores } = state;
   const { addAd, setView } = actions;
+  const userStore = currentUser?.storeId ? stores.find(s => s.id === currentUser.storeId) : null;
   
   const container = document.createElement('div');
   container.className = 'container py-5';
@@ -79,6 +80,16 @@ export const renderCreateAd = (state, actions) => {
                 <label class="form-check-label" for="censor-faces">${i18n.t('anonymize_faces')}</label>
             </div>
         </div>
+        ${userStore ? `
+        <div class="col-12">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="add-to-store" checked>
+                <label class="form-check-label" for="add-to-store">
+                    ${i18n.t('add_to_store')} "${userStore.name}"
+                </label>
+            </div>
+        </div>
+        ` : ''}
         <div class="col-12">
             <button type="submit" class="btn btn-primary btn-lg w-100">${i18n.t('submit_ad')}</button>
         </div>
@@ -147,12 +158,16 @@ export const renderCreateAd = (state, actions) => {
         );
       }
       // Fix: Add type assertions to resolve 'value' property errors.
+      const addToStoreCheckbox = form.querySelector('#add-to-store') as HTMLInputElement;
+      const addToStore = userStore && addToStoreCheckbox && addToStoreCheckbox.checked;
+      
       addAd({
         title: (form.querySelector('#title') as HTMLInputElement).value,
         description: (form.querySelector('#description') as HTMLTextAreaElement).value,
         price: parseFloat((form.querySelector('#price') as HTMLInputElement).value),
         category: (form.querySelector('#category') as HTMLSelectElement).value as any,
-        images: processedImages
+        images: processedImages,
+        storeId: addToStore ? userStore.id : undefined
       });
     } catch (error) {
       console.error("Error processing ad:", error);

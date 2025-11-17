@@ -2,13 +2,25 @@
 import { GoogleGenAI, Modality, Type } from "@google/genai";
 import type { ImageAnalysisResult, TextAnalysisResult } from '../types';
 
-const API_KEY = process.env.API_KEY;
+const API_KEY = process.env.API_KEY || process.env.GEMINI_API_KEY;
 
-if (!API_KEY) {
-  console.warn("API_KEY environment variable not set. AI features will not work.");
+// Only log warning in development mode
+if (!API_KEY && (import.meta.env.DEV || window.location.hostname === 'localhost')) {
+  console.info("ℹ️ API_KEY not set. AI features (image analysis, text moderation) will be disabled.");
 }
 
-const ai = new GoogleGenAI({ apiKey: API_KEY });
+// Lazy initialization - only create AI instance when needed and API key is available
+let ai: GoogleGenAI | null = null;
+
+const getAI = (): GoogleGenAI => {
+  if (!API_KEY) {
+    throw new Error("An API Key must be set when running in a browser");
+  }
+  if (!ai) {
+    ai = new GoogleGenAI({ apiKey: API_KEY });
+  }
+  return ai;
+};
 
 const fileToGenerativePart = (base64: string, mimeType: string) => {
   return {
@@ -22,7 +34,8 @@ const fileToGenerativePart = (base64: string, mimeType: string) => {
 export const analyzeImageSafety = async (base64Image: string, mimeType: string): Promise<ImageAnalysisResult> => {
   if (!API_KEY) throw new Error("API Key is not configured.");
   try {
-    const response = await ai.models.generateContent({
+    const aiInstance = getAI();
+    const response = await aiInstance.models.generateContent({
       model: 'gemini-2.5-flash',
       contents: {
         parts: [
@@ -46,7 +59,8 @@ export const analyzeImageSafety = async (base64Image: string, mimeType: string):
 export const analyzeAdText = async (title: string, description: string): Promise<TextAnalysisResult> => {
   if (!API_KEY) throw new Error("API Key is not configured.");
   try {
-    const response = await ai.models.generateContent({
+    const aiInstance = getAI();
+    const response = await aiInstance.models.generateContent({
       model: 'gemini-2.5-flash',
       contents: {
         parts: [
@@ -70,7 +84,8 @@ export const analyzeAdText = async (title: string, description: string): Promise
 const editImage = async (base64Image: string, mimeType: string, prompt: string): Promise<string> => {
     if (!API_KEY) throw new Error("API Key is not configured.");
     try {
-         const response = await ai.models.generateContent({
+         const aiInstance = getAI();
+         const response = await aiInstance.models.generateContent({
             model: 'gemini-2.5-flash-image',
             contents: {
                 parts: [

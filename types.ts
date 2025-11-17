@@ -7,6 +7,7 @@ export type User = {
   isRevisor: boolean;
   password?: string;
   storeId?: number;
+  earnings?: number; // Total earnings from reviewing ads
 };
 
 export type Store = {
@@ -41,6 +42,7 @@ export type Ad = {
   status: AdStatus;
   images: string[]; // file paths or base64 data URLs
   watermarkedImages?: string[];
+  storeId?: number; // Optional: associate ad with a store
 };
 
 export type Language = {
@@ -57,7 +59,12 @@ export type View =
   | { name: 'revisor_dashboard' }
   | { name: 'work_with_us' }
   | { name: 'become_seller' }
-  | { name: 'store_detail'; storeId: number };
+  | { name: 'store_detail'; storeId: number }
+  | { name: 'profile' }
+  | { name: 'my_listings' }
+  | { name: 'manage_store' }
+  | { name: 'basket' }
+  | { name: 'checkout' };
 
 export type ImageAnalysisResult = {
   safe: boolean;
@@ -69,4 +76,20 @@ export type TextAnalysisResult = {
   safe: boolean;
   tags: string[];
   reason: string;
+};
+
+export type BasketItem = {
+  adId: number;
+  quantity: number;
+  addedAt: number; // timestamp
+};
+
+export type Order = {
+  id: number;
+  userId: number;
+  items: BasketItem[];
+  total: number;
+  status: 'pending' | 'completed' | 'cancelled';
+  createdAt: number;
+  paymentMethod?: string;
 };
