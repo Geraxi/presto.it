@@ -9,14 +9,16 @@ export const renderCheckout = (state, actions) => {
 
   if (!currentUser) {
     container.innerHTML = `
-      <div class="alert alert-warning">
-        <h4 class="alert-heading">${i18n.t('login_required')}</h4>
-        <p>${i18n.t('login_required_for_checkout')}</p>
-        <hr>
-        <button class="btn btn-primary" id="login-btn">${i18n.t('login')}</button>
+      <div class="text-center py-5">
+        <i class="bi bi-person-fill-lock" style="font-size: 4rem; color: var(--bs-warning);"></i>
+        <h2 class="h2 fw-bold text-dark mt-4 mb-3">${i18n.t('login_required')}</h2>
+        <p class="text-muted mb-4">${i18n.t('login_required_for_checkout')}</p>
+        <button class="btn btn-primary btn-lg" id="login-btn">${i18n.t('login')}</button>
       </div>
     `;
     container.querySelector('#login-btn')!.onclick = () => {
+      // Store that we want to return to checkout after login
+      sessionStorage.setItem('returnToCheckout', 'true');
       actions.openLogin();
     };
     return container;

@@ -114,13 +114,38 @@ export default class App {
       }
       if (savedAds.length > 0) {
         savedAds.forEach(savedAd => {
-          const existingIndex = mergedAds.findIndex(a => a.id === savedAd.id);
-          if (existingIndex >= 0) {
-            // Update existing ad with saved data
-            mergedAds[existingIndex] = savedAd;
-          } else {
-            // Add new ad
-            mergedAds.push(savedAd);
+          try {
+            const existingIndex = mergedAds.findIndex(a => a.id === savedAd.id);
+            if (existingIndex >= 0) {
+              // For initial ads (from INITIAL_ADS_PROCESSED), preserve images from INITIAL_ADS_PROCESSED
+              // but keep other user-modified data (like status changes, user-created ads, etc.)
+              try {
+                const initialAd = INITIAL_ADS_PROCESSED && INITIAL_ADS_PROCESSED.length > 0 
+                  ? INITIAL_ADS_PROCESSED.find(a => a.id === savedAd.id)
+                  : null;
+                if (initialAd) {
+                  // This is an initial ad - use images from INITIAL_ADS_PROCESSED, but keep other saved data
+                  mergedAds[existingIndex] = {
+                    ...savedAd,
+                    images: initialAd.images, // Always use images from INITIAL_ADS_PROCESSED for initial ads
+                    watermarkedImages: initialAd.watermarkedImages
+                  };
+                } else {
+                  // This is a user-created ad - use saved data as-is
+                  mergedAds[existingIndex] = savedAd;
+                }
+              } catch (error) {
+                console.error('Error finding initial ad:', error);
+                // Fallback: use saved ad as-is
+                mergedAds[existingIndex] = savedAd;
+              }
+            } else {
+              // Add new ad (user-created)
+              mergedAds.push(savedAd);
+            }
+          } catch (error) {
+            console.error('Error processing saved ad:', savedAd.id, error);
+            // Skip this ad if there's an error
           }
         });
       }
@@ -393,7 +418,12 @@ export default class App {
   login(email, password) {
     const user = this.state.users.find(u => u.email === email && u.password === password);
     if (user) {
-      this.setState({ currentUser: user, view: { name: 'create_ad' } });
+      // Check if user was trying to checkout
+      const returnToCheckout = sessionStorage.getItem('returnToCheckout') === 'true';
+      sessionStorage.removeItem('returnToCheckout');
+      
+      const nextView = returnToCheckout ? { name: 'checkout' } : { name: 'create_ad' };
+      this.setState({ currentUser: user, view: nextView });
       // Explicitly save to ensure persistence
       this.saveCurrentUserIdToStorage(user.id);
       return true;

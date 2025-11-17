@@ -116,14 +116,14 @@ export const ensureAdImage = (ad: Ad): Ad => {
     
     // Don't normalize base64 data URLs or HTTP/HTTPS URLs - keep them as-is
     if (!imgPath.startsWith('data:') && !imgPath.startsWith('http://') && !imgPath.startsWith('https://')) {
-      if (imgPath.startsWith('/public/')) {
-        imgPath = imgPath.replace('/public/', '/');
-      }
+    if (imgPath.startsWith('/public/')) {
+      imgPath = imgPath.replace('/public/', '/');
+    }
       if (!imgPath.startsWith('/images/')) {
-        const filename = imgPath.split('/').pop();
-        imgPath = `/images/${filename}`;
-      }
-      ad.images[0] = imgPath;
+      const filename = imgPath.split('/').pop();
+      imgPath = `/images/${filename}`;
+    }
+    ad.images[0] = imgPath;
     }
     // If it's a data URL or HTTP URL, keep it as-is (no modification needed)
   }
@@ -139,14 +139,14 @@ export const ensureAdImage = (ad: Ad): Ad => {
       
       // Don't normalize base64 data URLs or HTTP/HTTPS URLs
       if (!wmPath.startsWith('data:') && !wmPath.startsWith('http://') && !wmPath.startsWith('https://')) {
-        if (wmPath.startsWith('/public/')) {
-          wmPath = wmPath.replace('/public/', '/');
-        }
+      if (wmPath.startsWith('/public/')) {
+        wmPath = wmPath.replace('/public/', '/');
+      }
         if (!wmPath.startsWith('/images/')) {
-          const filename = wmPath.split('/').pop();
-          wmPath = `/images/${filename}`;
-        }
-        ad.watermarkedImages[0] = wmPath;
+        const filename = wmPath.split('/').pop();
+        wmPath = `/images/${filename}`;
+      }
+      ad.watermarkedImages[0] = wmPath;
       }
       // If it's a data URL or HTTP URL, keep it as-is
     }
@@ -387,7 +387,7 @@ export const INITIAL_ADS: Ad[] = [
     category: 'furniture',
     userId: 2,
     status: 'approved',
-    images: ['https://images.pexels.com/photos/3771836/pexels-photo-3771836.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop'],
+    images: ['https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
   },
   {
     id: 16,
@@ -439,7 +439,7 @@ export const INITIAL_ADS: Ad[] = [
     category: 'motors',
     userId: 1,
     status: 'approved',
-    images: ['https://images.pexels.com/photos/163236/luxury-car-speed-vehicle-163236.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop'],
+    images: ['https://images.unsplash.com/photo-1558980664-1db506751c6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
   },
   {
     id: 21,
@@ -470,7 +470,7 @@ export const INITIAL_ADS: Ad[] = [
     category: 'sports',
     userId: 5,
     status: 'approved',
-    images: ['https://images.pexels.com/photos/163140/athlete-golf-sport-golfer-163140.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop'],
+    images: ['https://images.unsplash.com/photo-1535131749006-b7f58c99034b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
   },
   {
     id: 24,
@@ -552,7 +552,7 @@ export const INITIAL_ADS: Ad[] = [
     category: 'collectibles',
     userId: 2,
     status: 'approved',
-    images: ['https://images.pexels.com/photos/997910/pexels-photo-997910.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop'],
+    images: ['https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
   },
   // Additional Music & Movies
   {
@@ -563,7 +563,7 @@ export const INITIAL_ADS: Ad[] = [
     category: 'music_movies',
     userId: 5,
     status: 'approved',
-    images: ['https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop'],
+    images: ['https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
   },
   {
     id: 33,
@@ -573,7 +573,7 @@ export const INITIAL_ADS: Ad[] = [
     category: 'music_movies',
     userId: 1,
     status: 'approved',
-    images: ['https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop'],
+    images: ['https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
   },
   {
     id: 34,
