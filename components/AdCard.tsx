@@ -38,30 +38,30 @@ export const renderAdCard = (ad, state, actions) => {
   );
 
   card.innerHTML = `
-    <div class="card h-100 shadow-sm transform-hover" style="border: 2px solid #1a9ba8 !important; border-radius: 8px; overflow: hidden;">
-      <div class="position-relative" style="height: 200px; overflow: hidden;">
+    <div class="card h-100 shadow-sm" style="border: 1.5px solid rgba(2, 170, 189, 0.2); overflow: hidden;">
+      <div class="position-relative" style="height: 220px; overflow: hidden; background: linear-gradient(135deg, rgba(2, 170, 189, 0.1) 0%, rgba(1, 117, 130, 0.1) 100%);">
         <img 
           src="${displayedImage}" 
           class="card-img-top" 
           alt="${i18n.tContent(ad.title)}" 
-          style="width: 100%; height: 100%; object-fit: cover; display: block;" 
+          style="width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease;" 
           onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}';this.style.display='block';"
         />
         <div class="position-absolute top-0 start-0 m-2">
-          <span class="badge" style="background-color: #1a9ba8; color: white;">
+          <span class="badge shadow-sm" style="background-color: var(--bs-turquoise-blue); color: white; backdrop-filter: blur(10px);">
             ${i18n.tCategory(ad.category)}
           </span>
         </div>
       </div>
-      <div class="card-body d-flex flex-column" style="padding: 16px; min-height: 200px;">
-        <div class="d-flex align-items-start gap-3 mb-2" style="min-height: 3.5rem;">
+      <div class="card-body d-flex flex-column" style="padding: 1.25rem; min-height: 200px;">
+        <div class="d-flex align-items-start gap-3 mb-3" style="min-height: 3.5rem;">
           <span id="cat-icon-container"></span>
-          <h5 class="card-title fw-bold text-dark mb-0" style="font-size: 1.1rem; line-height: 1.3;">
+          <h5 class="card-title fw-bold text-dark mb-0" style="font-size: 1.1rem; line-height: 1.4;">
             ${i18n.tContent(ad.title)}
           </h5>
         </div>
-        <div class="mt-auto pt-2" style="padding-top: 10px;">
-          <p class="fs-4 fw-semibold mb-2" style="color: #1a9ba8; font-size: 1.2rem; font-weight: 700;">
+        <div class="mt-auto pt-3" style="border-top: 1px solid rgba(0, 0, 0, 0.08);">
+          <p class="fs-4 fw-bold mb-3" style="color: var(--bs-turquoise-blue); font-size: 1.35rem;">
             ${i18n.formatPrice(ad.price)}
           </p>
           ${ad.status === 'approved' ? `
@@ -69,21 +69,12 @@ export const renderAdCard = (ad, state, actions) => {
               <i class="bi bi-cart-plus me-1"></i>${i18n.t('add_to_basket')}
             </button>
           ` : ''}
-          <p class="card-text text-muted small mt-1 mb-0">
-            ${i18n.t('posted_by')} <strong>${seller ? seller.name : i18n.t('unknown_user')}</strong>
+          <p class="card-text text-muted small mb-0" style="font-size: 0.875rem;">
+            <i class="bi bi-person-circle me-1"></i>${i18n.t('posted_by')} <strong>${seller ? seller.name : i18n.t('unknown_user')}</strong>
           </p>
         </div>
       </div>
     </div>
-    <style>
-      .transform-hover {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-      .transform-hover:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1) !important;
-      }
-    </style>
   `;
 
   card

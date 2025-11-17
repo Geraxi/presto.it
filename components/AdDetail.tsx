@@ -67,8 +67,8 @@ export const renderAdDetail = (state, actions, adId) => {
   adDetailCard.innerHTML = `
     <div class="card-body">
       <div class="mb-4">
-        <button class="btn btn-link text-decoration-none p-0" id="back-btn-main">
-          &larr; ${i18n.t('back_to_home')}
+        <button class="btn btn-outline-secondary btn-sm" id="back-btn-main">
+          <i class="bi bi-arrow-left me-2"></i>${i18n.t('back_to_home')}
         </button>
       </div>
       <div class="row g-4">

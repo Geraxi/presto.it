@@ -45,8 +45,667 @@
       .text-deep-teal {
         color: var(--bs-deep-teal) !important;
       }
-       .text-turquoise-blue {
+      .text-turquoise-blue {
         color: var(--bs-turquoise-blue) !important;
+      }
+
+      /* Enhanced Design Improvements */
+      
+      /* Typography improvements */
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        letter-spacing: 0.01em;
+        line-height: 1.6;
+      }
+      
+      h1, h2, h3, h4, h5, h6 {
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+      
+      /* Enhanced card designs */
+      .card {
+        border: none;
+        border-radius: 12px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow: hidden;
+      }
+      
+      .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+      }
+      
+      .card-header {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 12px 12px 0 0 !important;
+        font-weight: 600;
+      }
+      
+      /* Enhanced buttons */
+      .btn {
+        border-radius: 8px;
+        font-weight: 500;
+        padding: 0.5rem 1.25rem;
+        transition: all 0.2s ease;
+        letter-spacing: 0.01em;
+      }
+      
+      .btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+      
+      .btn:active {
+        transform: translateY(0);
+      }
+      
+      .btn-lg {
+        padding: 0.75rem 1.75rem;
+        font-size: 1.1rem;
+        border-radius: 10px;
+      }
+      
+      .btn-sm {
+        padding: 0.375rem 0.875rem;
+        border-radius: 6px;
+      }
+      
+      /* Enhanced form controls */
+      .form-control, .form-select {
+        border-radius: 8px;
+        border: 1.5px solid rgba(0, 0, 0, 0.1);
+        padding: 0.625rem 1rem;
+        transition: all 0.2s ease;
+      }
+      
+      .form-control:focus, .form-select:focus {
+        border-color: var(--bs-turquoise-blue);
+        box-shadow: 0 0 0 0.2rem rgba(2, 170, 189, 0.15);
+        transform: translateY(-1px);
+      }
+      
+      /* Enhanced shadows */
+      .shadow-sm {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+      }
+      
+      .shadow {
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;
+      }
+      
+      .shadow-lg {
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12) !important;
+      }
+      
+      .shadow-xl {
+        box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15) !important;
+      }
+      
+      /* Enhanced header */
+      header {
+        backdrop-filter: blur(10px);
+        background-color: rgba(255, 255, 255, 0.95) !important;
+      }
+      
+      /* Enhanced dropdown menus */
+      .dropdown-menu {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        padding: 0.5rem;
+        margin-top: 0.5rem;
+      }
+      
+      .dropdown-item {
+        border-radius: 8px;
+        padding: 0.625rem 1rem;
+        transition: all 0.2s ease;
+        margin: 0.125rem 0;
+      }
+      
+      .dropdown-item:hover {
+        background-color: rgba(2, 170, 189, 0.1);
+        transform: translateX(4px);
+      }
+      
+      /* Enhanced badges */
+      .badge {
+        border-radius: 6px;
+        padding: 0.35em 0.65em;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+      }
+      
+      /* Enhanced list groups */
+      .list-group-item {
+        border: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        padding: 1rem 1.25rem;
+        transition: all 0.2s ease;
+      }
+      
+      .list-group-item:hover {
+        background-color: rgba(2, 170, 189, 0.05);
+        transform: translateX(4px);
+      }
+      
+      .list-group-item:last-child {
+        border-bottom: none;
+      }
+      
+      /* Enhanced alerts */
+      .alert {
+        border: none;
+        border-radius: 12px;
+        border-left: 4px solid;
+        padding: 1rem 1.25rem;
+      }
+      
+      .alert-info {
+        border-left-color: var(--bs-info);
+        background-color: rgba(13, 202, 240, 0.1);
+      }
+      
+      .alert-success {
+        border-left-color: var(--bs-success);
+        background-color: rgba(25, 135, 84, 0.1);
+      }
+      
+      .alert-warning {
+        border-left-color: var(--bs-warning);
+        background-color: rgba(255, 193, 7, 0.1);
+      }
+      
+      .alert-danger {
+        border-left-color: var(--bs-danger);
+        background-color: rgba(220, 53, 69, 0.1);
+      }
+      
+      /* Enhanced modals */
+      .modal-content {
+        border: none;
+        border-radius: 16px;
+        box-shadow: 0 16px 64px rgba(0, 0, 0, 0.2);
+      }
+      
+      .modal-header {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 16px 16px 0 0;
+        padding: 1.5rem;
+      }
+      
+      .modal-body {
+        padding: 1.5rem;
+      }
+      
+      .modal-footer {
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 0 0 16px 16px;
+        padding: 1.5rem;
+      }
+      
+      /* Enhanced input groups */
+      .input-group .form-control {
+        border-radius: 8px;
+      }
+      
+      .input-group-text {
+        border-radius: 8px;
+        border: 1.5px solid rgba(0, 0, 0, 0.1);
+      }
+      
+      /* Smooth scroll behavior */
+      html {
+        scroll-behavior: smooth;
+      }
+      
+      /* Enhanced spacing */
+      .container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+      
+      @media (min-width: 1200px) {
+        .container {
+          max-width: 1140px;
+        }
+      }
+      
+      /* Enhanced focus states */
+      *:focus {
+        outline: none;
+      }
+      
+      *:focus-visible {
+        outline: 2px solid var(--bs-turquoise-blue);
+        outline-offset: 2px;
+        border-radius: 4px;
+      }
+      
+      /* Enhanced transitions - disabled for performance */
+      
+      /* Better image display */
+      img {
+        border-radius: 8px;
+        transition: transform 0.3s ease;
+      }
+      
+      img:hover {
+        transform: scale(1.02);
+      }
+      
+      /* Enhanced table design */
+      .table {
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      
+      .table thead {
+        background-color: rgba(2, 170, 189, 0.1);
+      }
+      
+      .table tbody tr {
+        transition: all 0.2s ease;
+      }
+      
+      .table tbody tr:hover {
+        background-color: rgba(2, 170, 189, 0.05);
+        transform: scale(1.01);
+      }
+      
+      /* Enhanced progress bars */
+      .progress {
+        border-radius: 10px;
+        height: 10px;
+        overflow: hidden;
+      }
+      
+      .progress-bar {
+        border-radius: 10px;
+        transition: width 0.6s ease;
+      }
+      
+      /* Enhanced pagination */
+      .pagination .page-link {
+        border-radius: 8px;
+        margin: 0 0.25rem;
+        border: 1.5px solid rgba(0, 0, 0, 0.1);
+        transition: all 0.2s ease;
+      }
+      
+      .pagination .page-link:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      
+      /* Enhanced breadcrumbs */
+      .breadcrumb {
+        background-color: transparent;
+        padding: 0;
+      }
+      
+      .breadcrumb-item a {
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+      
+      /* Better spacing for sections */
+      section {
+        padding: 3rem 0;
+      }
+      
+      @media (min-width: 768px) {
+        section {
+          padding: 4rem 0;
+        }
+      }
+      
+      /* Enhanced footer */
+      footer {
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+      }
+      
+      /* Smooth animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      .fade-in {
+        animation: fadeIn 0.4s ease-out;
+      }
+      
+      /* Footer link hover effects */
+      .footer-link:hover {
+        color: var(--bs-turquoise-blue) !important;
+        transform: translateX(4px);
+      }
+      
+      /* Social media icon hover */
+      footer a[aria-label]:hover {
+        background-color: rgba(2, 170, 189, 0.2) !important;
+        transform: translateY(-2px) scale(1.1);
+      }
+      
+      /* Language button hover */
+      .lang-btn:hover {
+        filter: grayscale(0) !important;
+        transform: scale(1.15);
+      }
+      
+      /* Search input focus */
+      #search-input:focus {
+        background-color: rgba(255, 255, 255, 0.3) !important;
+        box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
+      }
+      
+      /* Category button improvements */
+      .bg-deep-teal .btn-link.text-white:hover {
+        color: rgba(255, 255, 255, 0.9) !important;
+        text-decoration: underline;
+      }
+      
+      /* Enhanced card image hover */
+      .card-img-top {
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      
+      .card:hover .card-img-top {
+        transform: scale(1.05);
+      }
+      
+      /* Better spacing for containers */
+      .container.py-5 {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+      }
+      
+      @media (min-width: 768px) {
+        .container.py-5 {
+          padding-top: 4rem !important;
+          padding-bottom: 4rem !important;
+        }
+      }
+      
+      /* Enhanced sticky header */
+      header.sticky-top {
+        z-index: 1030;
+      }
+      
+      /* Better badge styling */
+      .badge {
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      
+      /* Enhanced carousel */
+      .carousel-control-prev,
+      .carousel-control-next {
+        width: 50px;
+        height: 50px;
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0.7;
+        transition: all 0.3s ease;
+      }
+      
+      .carousel-control-prev:hover,
+      .carousel-control-next:hover {
+        opacity: 1;
+        background-color: rgba(0, 0, 0, 0.7);
+      }
+      
+      /* Enhanced input group buttons */
+      .input-group .btn {
+        border-radius: 0 8px 8px 0;
+      }
+      
+      .input-group .btn:first-child {
+        border-radius: 8px 0 0 8px;
+      }
+      
+      /* Enhanced icon hover effects */
+      .bi {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        display: inline-block;
+      }
+      
+      /* Header icon buttons hover */
+      #basket-btn:hover .bi,
+      #basket-btn:hover {
+        transform: scale(1.1);
+        color: var(--bs-turquoise-blue) !important;
+      }
+      
+      #basket-btn {
+        transition: all 0.3s ease;
+      }
+      
+      #basket-btn:hover {
+        background-color: rgba(2, 170, 189, 0.1) !important;
+        border-color: var(--bs-turquoise-blue) !important;
+      }
+      
+      /* User profile icon hover */
+      .btn.rounded-circle:hover .bi-person-fill,
+      .btn.rounded-circle:hover {
+        transform: scale(1.15);
+        color: var(--bs-turquoise-blue) !important;
+      }
+      
+      .btn.rounded-circle {
+        transition: all 0.3s ease;
+      }
+      
+      .btn.rounded-circle:hover {
+        background-color: rgba(2, 170, 189, 0.1) !important;
+        border-color: var(--bs-turquoise-blue) !important;
+      }
+      
+      /* Language dropdown icon hover */
+      .dropdown-toggle:hover .bi-chevron-down {
+        transform: rotate(180deg) scale(1.1);
+      }
+      
+      .dropdown-toggle .bi-chevron-down {
+        transition: transform 0.3s ease;
+      }
+      
+      /* Button icons hover */
+      .btn:hover .bi {
+        transform: scale(1.1);
+      }
+      
+      .btn-primary:hover .bi {
+        color: white;
+      }
+      
+      .btn-outline-secondary:hover .bi {
+        transform: scale(1.1) translateX(-2px);
+      }
+      
+      /* Card icon hover */
+      .card:hover .bi {
+        transform: scale(1.1);
+        color: var(--bs-turquoise-blue);
+      }
+      
+      /* Dropdown item icons hover */
+      .dropdown-item:hover .bi {
+        transform: scale(1.15) translateX(2px);
+        color: var(--bs-turquoise-blue);
+      }
+      
+      /* Footer icons hover */
+      footer .bi:hover {
+        transform: scale(1.2) rotate(5deg);
+      }
+      
+      /* Social media icons hover */
+      footer a[aria-label] .bi:hover {
+        transform: scale(1.3) rotate(5deg);
+      }
+      
+      /* Category icon hover in cards */
+      #cat-icon-container:hover .bi,
+      #cat-icon-container:hover svg {
+        transform: scale(1.2) rotate(5deg);
+      }
+      
+      #cat-icon-container {
+        transition: all 0.3s ease;
+      }
+      
+      /* Search icon hover */
+      .position-relative:hover .bi,
+      #search-input:hover ~ span .bi,
+      #search-input:focus ~ span .bi {
+        color: white !important;
+        transform: scale(1.1);
+      }
+      
+      /* Language flag hover */
+      .dropdown-toggle:hover span {
+        transform: scale(1.1);
+      }
+      
+      .dropdown-toggle span {
+        transition: transform 0.3s ease;
+        display: inline-block;
+      }
+      
+      /* Add to basket icon hover */
+      #add-to-basket-btn:hover .bi-cart-plus,
+      button[id^="add-to-basket"]:hover .bi-cart-plus {
+        transform: scale(1.2) rotate(-10deg);
+      }
+      
+      /* Navigation icons */
+      .btn-link:hover .bi {
+        transform: scale(1.15);
+      }
+      
+      /* Alert icons */
+      .alert .bi {
+        transition: all 0.3s ease;
+      }
+      
+      .alert:hover .bi {
+        transform: scale(1.15) rotate(5deg);
+      }
+      
+      /* Badge icons */
+      .badge .bi {
+        transition: all 0.2s ease;
+      }
+      
+      .badge:hover .bi {
+        transform: scale(1.2);
+      }
+      
+      /* List group item icons */
+      .list-group-item:hover .bi {
+        transform: scale(1.1) translateX(3px);
+        color: var(--bs-turquoise-blue);
+      }
+      
+      /* Table icons */
+      .table tbody tr:hover .bi {
+        transform: scale(1.15);
+        color: var(--bs-turquoise-blue);
+      }
+      
+      /* Modal icons */
+      .modal-header .bi:hover {
+        transform: scale(1.2);
+      }
+      
+      /* Carousel control icons */
+      .carousel-control-prev:hover .carousel-control-prev-icon,
+      .carousel-control-next:hover .carousel-control-next-icon {
+        transform: scale(1.2);
+      }
+      
+      /* Form control icons */
+      .input-group-text .bi:hover {
+        transform: scale(1.15);
+        color: var(--bs-turquoise-blue);
+      }
+      
+      /* Smooth icon animations */
+      @keyframes iconPulse {
+        0%, 100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+      }
+      
+      .bi.bi-cart:hover {
+        animation: iconPulse 0.6s ease-in-out;
+      }
+      
+      /* Enhanced dropdown toggle icon rotation */
+      .dropdown-toggle[aria-expanded="true"] .bi-chevron-down {
+        transform: rotate(180deg);
+      }
+      
+      /* Icon in text hover */
+      p:hover .bi,
+      span:hover .bi,
+      h1:hover .bi,
+      h2:hover .bi,
+      h3:hover .bi,
+      h4:hover .bi,
+      h5:hover .bi,
+      h6:hover .bi {
+        transform: scale(1.1);
+        color: var(--bs-turquoise-blue);
+      }
+      
+      /* Loading spinner icons */
+      .spinner-border .bi,
+      .spinner-grow .bi {
+        animation: iconPulse 1s linear infinite;
+      }
+      
+      /* Icon with text hover effect */
+      .btn:hover .bi + span,
+      .btn:hover span + .bi {
+        transform: translateX(2px);
+      }
+      
+      /* Card title icons */
+      .card-title .bi:hover {
+        transform: scale(1.2) rotate(10deg);
+        color: var(--bs-turquoise-blue);
+      }
+      
+      /* Price icons */
+      .text-primary .bi:hover,
+      .text-success .bi:hover {
+        transform: scale(1.15);
+      }
+      
+      /* Navigation icons with better transitions */
+      nav .bi {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      
+      nav button:hover .bi {
+        transform: scale(1.15);
       }
     </style>
   <script type="importmap">

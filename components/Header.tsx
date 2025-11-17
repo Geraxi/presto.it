@@ -24,7 +24,7 @@ export const renderHeader = (state, actions) => {
       <nav class="d-flex align-items-center gap-2">
         ${currentUser ? `<button class="btn btn-primary d-none d-md-inline-block" id="post-ad-btn">${i18n.t('post_ad')}</button>` : ''}
         
-        <button class="btn btn-light position-relative" id="basket-btn" style="width: 40px; height: 40px;">
+        <button class="btn btn-light position-relative" id="basket-btn" style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
           <i class="bi bi-cart fs-5"></i>
           ${basketItemCount > 0 ? `
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.65rem;">
@@ -34,8 +34,8 @@ export const renderHeader = (state, actions) => {
         </button>
         
         <div class="dropdown">
-          <button class="btn btn-light d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <span>${language.flag}</span>
+          <button class="btn btn-light d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 20px;">
+            <span style="font-size: 1.2rem; transition: transform 0.3s ease;">${language.flag}</span>
             <i class="bi bi-chevron-down ms-2"></i>
           </button>
           <ul class="dropdown-menu dropdown-menu-end">
@@ -49,7 +49,7 @@ export const renderHeader = (state, actions) => {
 
         <div class="dropdown">
           ${currentUser ? `
-            <button class="btn btn-light rounded-circle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="width: 40px; height: 40px;">
+            <button class="btn btn-light rounded-circle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
               <i class="bi bi-person-fill fs-5"></i>
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
@@ -82,14 +82,14 @@ export const renderHeader = (state, actions) => {
         `).join('')}
       </nav>
       <div class="position-relative ms-4 d-none d-sm-flex align-items-center">
-          <span class="position-absolute start-0 ms-3 text-white-50">${SearchIcon({ className: "h-5 w-5" }).outerHTML}</span>
+          <span class="position-absolute start-0 ms-3 text-white-50 z-1" style="z-index: 1;">${SearchIcon({ className: "h-5 w-5" }).outerHTML}</span>
           <input
               type="text"
               placeholder="${i18n.t('search_placeholder')}"
               value="${searchTerm}"
-              class="form-control form-control-sm ps-5 bg-white bg-opacity-25 text-white border-0"
+              class="form-control form-control-sm ps-5 bg-white bg-opacity-20 text-white border-0"
               id="search-input"
-              style="--bs-body-color: white; --bs-placeholder-color: rgba(255,255,255,0.7);"
+              style="--bs-body-color: white; --bs-placeholder-color: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border-radius: 25px; transition: all 0.3s ease; min-width: 250px;"
           />
       </div>
     </div>
